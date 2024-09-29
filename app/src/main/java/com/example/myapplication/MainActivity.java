@@ -13,13 +13,13 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
    private Button btnOne, btnPlus,btntwo,btnthree,btnfour,btnfive,btnsix,btnseven,btneight,btnnine,btnzero,btnpoint,btnequal,btnclear,btnsign,btnpercent,btnmultiply,btndivision,btnminus;
     private TextView txtResult;
-   private String kind;
-   private String text;
-   private Double result,num1, num2;
+   private String kind="";
+   private String text="";
+   private Double result=0.0,num1=0.0, num2=0.0;
   private   Boolean flag = false;
    private Boolean is= false;
-    private Integer sign=0;
   private   Integer pow=0;
+    private   Integer sign=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +60,48 @@ public class MainActivity extends AppCompatActivity {
         btnminus = findViewById(R.id.btnminus);
         txtResult = findViewById(R.id.etnumber);
 
-        btnOne.setOnClickListener(this :: Number1);
-        btntwo.setOnClickListener(this::Number2);
-        btnthree.setOnClickListener(this::Number3);
-        btnfour.setOnClickListener(this::Number4);
-        btnfive.setOnClickListener(this::Number5);
-        btnsix.setOnClickListener(this::Number6);
-        btnseven.setOnClickListener(this::Number7);
-        btneight.setOnClickListener(this::Number8);
-        btnnine.setOnClickListener(this::Number9);
-        btnzero.setOnClickListener(this::Number0);
+        btnOne.setOnClickListener(v -> {
+            text = text + "1";
+            Number(1.0);
+        } );
+        btntwo.setOnClickListener(v -> {
+            text = text + "2";
+            Number(2.0);
+        });
+        btnthree.setOnClickListener(v -> {
+            text = text + "3";
+            Number(3.0);
+                });
+        btnfour.setOnClickListener(v -> {
+            text = text + "4";
+            Number(4.0);
+                });
+        btnfive.setOnClickListener(v -> {
+            text = text + "5";
+                Number(5.0);
+                });
+
+        btnsix.setOnClickListener(v -> {
+            text = text + "6";
+            Number(6.0);
+                });
+        btnseven.setOnClickListener(v -> {
+            text = text + "7";
+            Number(7.0);
+        });
+        btneight.setOnClickListener(v -> {
+            text = text + "8";
+            Number(8.0);
+
+        });
+        btnnine.setOnClickListener(v -> {
+            text = text + "9";
+            Number(9.0);
+        });
+        btnzero.setOnClickListener(v -> {
+            text = text + "0";
+            Number0(v);
+        });
         btnpoint.setOnClickListener(this::Numberdot);
         btnequal.setOnClickListener(this::buEqual);
         btnclear.setOnClickListener(this::btnclear);
@@ -77,12 +109,12 @@ public class MainActivity extends AppCompatActivity {
         btnpercent.setOnClickListener(this::bupercent);
         btnmultiply.setOnClickListener(this::Multiply);
         btndivision.setOnClickListener(this::Division);
-
+        btnPlus.setOnClickListener(this::plusEvent);
+        btnminus.setOnClickListener(this::minusEvent);
     }
     public void Number(Double x) {
-        text = txtResult.getText().toString();
-        if (!is) {
-            if (flag == false)
+        if (!this.is) {
+            if (this.flag == false)
                 num1 = num1 * 10 + x;
             else
                 num2 = num2 * 10 + x;
@@ -94,8 +126,9 @@ public class MainActivity extends AppCompatActivity {
                 num2 = num2 + x / (Math.pow(10, pow));
                 pow++;
             }
-            txtResult.setText(text + "x");
+
         }
+        txtResult.setText(text);
     }
 
     public void buEqual(View view) {
@@ -107,19 +140,28 @@ public class MainActivity extends AppCompatActivity {
             result = num1 * num2;
        else if(kind == "÷")
             result = num1 / num2;
-       num1 = result;
-       num2= 0.0;
+       else if(kind =="" &&num2==0.0)
+           result=num1;
+      num1=result;
+      num2=0.0;
+       flag=false;
+       pow=0;
+       sign=0;
+       is=false;
+       kind="";
        txtResult.setText(result.toString());
 
     }
 
+
     public void Numberdot(View view) {
-        text = txtResult.getText().toString();
-        txtResult.setText(text+".");
+        text = txtResult.getText().toString()+".";
+        txtResult.setText(text);
+        is = true;
     }
 
     public void Number0(View view) {
-        text = txtResult.getText().toString();
+        text = txtResult.getText().toString() +"0";
         if(!is) {
             if (!flag)
                 num1 = num1 * 10 + 0.0;
@@ -127,65 +169,42 @@ public class MainActivity extends AppCompatActivity {
                 num2 = num2 * 10 + 0.0;
         }
         else pow++;
-        txtResult.setText(text + "0");
-
+        txtResult.setText(text);
     }
 
-    public void Number1(View view) {
-        Number(1.0);
-        }
-
-
-    public void Number2(View view) {
-        Number(2.0);
-    }
-
-    public void Number3(View view) {
-        Number(3.0);
-    }
-    public void Number4(View view) {
-        Number(4.0);
-    }
-    public void Number5(View view) {
-        Number(5.0);
-    }
-    public void Number6(View view) {
-        Number(6.0);
-    }
-    public void Number7(View view) {
-        Number(7.0);
-    }
-    public void Number8(View view) {
-        Number(8.0);
-    }
-    public void Number9(View view) {
-        Number(9.0);
-    }
     public void Maths(String k)
     {
-        text = txtResult.getText().toString();
-        txtResult.setText(text + k.toString());
+        text = txtResult.getText().toString() + k.toString();
+        txtResult.setText(text.toString());
         flag = true;
         pow=0;
-        kind=k.toString();
         sign=0;
+        kind=k.toString();
+
     }
-    public void plusEvent(View view) {
-      Maths("+");
-    }
-    public void minusEvent(View view) {
-       Maths("-");
-    }
-    public void bupercent(View view) {
-       Maths("%");
-    }
+
     public void btnclear(View view) {
         txtResult.setText("0");
         num1 = 0.0;
         num2 = 0.0;
-         sign = 0;
+        text = "";
         flag = false;
         pow=0;
+        sign=0;
+        result=0.0;
+    }
+    public void plusEvent(View view) {
+        Maths("+");
+    }
+    public void minusEvent(View view) {
+        Maths("-");
+    }
+    public void bupercent(View view) {
+       if(!flag)
+           num1=num1/100;
+       else num2=num2/100;
+       text =txtResult.getText().toString()+"%";
+       txtResult.setText(text);
     }
         public void Multiply(View view) {
         Maths("x");
@@ -194,22 +213,14 @@ public class MainActivity extends AppCompatActivity {
         Maths("÷");
     }
     public void signChange(View view) {
-        text = txtResult.getText().toString();
-        if (sign%2==0) {
-            if (flag == false)
-                num1 = num1 * -1;
-            else num2 = num2 * -1;
-            txtResult.setText("-" + text);
-        }
-        else txtResult.setText(text);
-        sign ++;
+        sign++;
+        if (flag == false)
+            num1 = num1 * -1;
+         else num2 = num2 *-1;
+         if (sign%2!=0)
+             text =txtResult.getText().toString()+"-";
+         else text =txtResult.getText().toString().replace("-", "");
+         txtResult.setText(text);
+
     }
-
-
-
-
-
-
-
-
-}
+    }
