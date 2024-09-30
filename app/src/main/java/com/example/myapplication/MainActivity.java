@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
            result=num1;
       num1=result;
       num2=0.0;
-       flag=false;
+      flag=false;
        pow=0;
        sign=0;
        is=false;

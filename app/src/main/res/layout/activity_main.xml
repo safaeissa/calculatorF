@@ -105,7 +105,7 @@
                 tools:ignore="ButtonStyle" />
 
             <Button
-                android:id="@+id/btneight"
+                android:id="@+id/btnnine"
                 android:layout_width="25pt"
                 android:layout_height="25pt"
                 android:layout_marginEnd="1pt"
@@ -118,7 +118,7 @@
                 tools:ignore="ButtonStyle" />
 
             <Button
-                android:id="@+id/btnnine"
+                android:id="@+id/btneight"
                 android:layout_width="25pt"
                 android:layout_height="25pt"
                 android:layout_marginEnd="1pt"
